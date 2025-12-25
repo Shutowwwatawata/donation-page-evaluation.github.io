@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地域の未来を創る学生起業家支援プロジェクト | SCSKふるさと納税</title>
+    <style>
+        :root {
+            --accent: #ff5e17;
+            --text: #333;
+            --muted: #666;
+            --bg: #fffdfa;
+            --card: #ffffff;
+            --line: #e5e5e5;
+            --primary-brown: #8b4513;
+            --secondary-green: #4caf50;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: "Hiragino Sans", "Noto Sans JP", system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        img { max-width: 100%; display: block; }
+        a { color: inherit; text-decoration: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .section {
+            margin: 48px 0;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 24px;
+            align-items: center;
+            margin-bottom: 36px;
+        }
+        /* Header */
+        header.site-header {
+            border-bottom: 1px solid #e2e8f0;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .brand img {
+            display: block;
+            height: 44px;
+            width: auto;
+        }
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: clamp(10px, 3vw, 28px);
+            font-weight: 700;
+        }
+        .nav a {
+            color: #ff5e17;
+            font-size: 14px;
+        }
+        .nav a:hover { opacity: 0.7; }
+        .nav-cta {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #ff5e17;
+            color: #ff5e17;
+            font-weight: 800;
+        }
+        /* Mobile nav */
+        .nav-toggle {
+            display: none;
+        }
+        .hamburger {
+            display: none;
+            width: 26px;
+            height: 20px;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: #ff5e17;
+            border-radius: 2px;
+        }
+        @media (max-width: 900px) {
+            .nav { display: none; flex-direction: column; align-items: flex-start; gap: 14px; }
+            .nav-cta { width: 100%; text-align: center; }
+            .hamburger { display: flex; }
+            .nav-toggle:checked ~ .nav { display: flex; }
+            .header-inner { flex-wrap: wrap; }
+        }
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .logo-placeholder {
+            width: 180px;
+            height: 64px;
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: var(--muted);
+            background: #fff;
+        }
+        .top-texts {
+            display: grid;
+            gap: 6px;
+        }
+        .top-texts .location {
+            color: var(--muted);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+        .top-texts .title {
+            margin: 0;
+            font-size: clamp(22px, 2.6vw, 28px);
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.35;
+        }
+        .top-texts .catch {
+            margin: 0;
+            color: var(--accent);
+            font-weight: 800;
+            font-size: clamp(18px, 2.2vw, 24px);
+            letter-spacing: 0.05em;
+        }
+
+        .share {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .share a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+        }
+        .btn-facebook { background: #0866ff; }
+        .btn-x { background: #000; }
+        .btn-line { background: #06c755; }
+
+        .hero {
+            display: grid;
+            gap: 16px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 20px 20px 6px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.04);
+        }
+        .hero .lead {
+            margin: 0 0 12px;
+            color: var(--text);
+        }
+
+        .stats { display: grid; gap: 12px; }
+        .stat-card {
+            background: linear-gradient(135deg, #eefdfb, #f9e2f3);
+            border: 1px solid var(--accent);
+            border-radius: 16px;
+            padding: 20px;
+            color: #0f172a;
+        }
+        .stat-card h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+        .stat-card .big {
+            font-weight: 800;
+            font-size: 36px;
+        }
+        .stat-card .sub {
+            color: var(--muted);
+            margin-left: 6px;
+        }
+        .primary-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 14px 16px;
+            text-align: center;
+            border-radius: 12px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 800;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .pill-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .pill {
+            flex: 1;
+            min-width: 140px;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--line);
+            background: #f3f4f6;
+            color: #111827;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .image-placeholder {
+            background: repeating-linear-gradient(45deg, #f3f4f6, #f3f4f6 12px, #e5e7eb 12px, #e5e7eb 24px);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            height: 320px;
+            display: grid;
+            place-items: center;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .section-title::before {
+            content: "";
+            width: 10px;
+            height: 32px;
+            border-radius: 999px;
+            background: var(--accent);
+            display: inline-block;
+        }
+
+        dl {
+            margin: 0;
+        }
+        dt {
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+        dd {
+            margin: 0 0 16px;
+            color: var(--muted);
+        }
+
+        .list-dot {
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+        }
+        .list-dot li { margin-bottom: 8px; }
+
+        .faq {
+            display: grid;
+            gap: 14px;
+        }
+        .faq-item {
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+        }
+        .faq-item strong { display: block; margin-bottom: 6px; }
+
+        .message {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        .message .image-placeholder { height: 420px; }
+        .quote {
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .affiliation {
+            color: var(--muted);
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .service {
+            background: var(--primary-brown);
+            color: #fff;
+            padding: 48px 24px;
+            border-radius: 18px;
+        }
+        .service .inner {
+            background: #fff;
+            color: var(--text);
+            border-radius: 14px;
+            padding: 32px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+        .service h2 {
+            margin: 0 0 8px;
+            color: var(--primary-brown);
+            font-size: 24px;
+        }
+        .service .divider {
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-brown), transparent);
+            width: 140px;
+            margin: 4px 0 16px;
+        }
+        .flow-steps {
+            display: grid;
+            gap: 14px;
+        }
+        .flow-step {
+            display: grid;
+            grid-template-columns: 52px 1fr;
+            gap: 14px;
+            padding: 14px;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            background: #f9fafb;
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: #f3f4f6;
+            font-weight: 800;
+        }
+
+        .note {
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .right-column .card + .card { margin-top: 18px; }
+        .comment-placeholder {
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--muted);
+            font-weight: 700;
+            background: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .top-bar { grid-template-columns: 1fr; gap: 16px; }
+            .main-grid { grid-template-columns: 1fr; }
+            .message { grid-template-columns: 1fr; }
+            .logo-placeholder { width: 140px; }
+        }
+        @media (max-width: 600px) {
+            .container { padding: 16px; }
+            .share a { width: 100%; justify-content: center; }
+            .pill { min-width: 120px; flex: 1 1 48%; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="brand">
+                <img src="./プロジェクト詳細 _ SCSKのふるさと納税_files/header_pc_logo.svg" alt="SCSKのふるさと納税 ロゴ" onerror="this.style.display='none'">
+            </div>
+            <label class="hamburger" for="nav-toggle">
+                <span></span><span></span><span></span>
+            </label>
+            <input type="checkbox" id="nav-toggle" class="nav-toggle">
+            <nav class="nav">
+                <a href="#" aria-label="マイページ">マイページ</a>
+                <a href="#" aria-label="サービスの特徴">サービスの特徴</a>
+                <a href="#" aria-label="お知らせ">お知らせ</a>
+                <a href="#" aria-label="よくある質問">よくある質問</a>
+                <a href="#" aria-label="検索">検索</a>
+                <a href="#" class="nav-cta" aria-label="寄付を探す">寄付を探す</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-grid section">
+            <div class="left-column">
+                <div class="logo-area">
+                    <div class="logo-placeholder">教育機関ロゴ</div>
+                </div>
+                
+                <div class="card" style="margin-bottom:20px;">
+                    <div class="image-placeholder" style="height:360px;">メインビジュアル（16:9）</div>
+                    <p class="note">推奨サイズ: 1600 × 900px</p>
+                </div>
+
+                <div class="top-texts">
+                    <p class="location">東京都八王子市</p>
+                    <p class="title">地域の未来を創る学生起業家支援プロジェクト</p>
+                </div>
+                <div class="top-texts">
+                <p class="catch">未来への投資、今始めよう</p>
+                </div>
+
+                <div class="hero">
+                    <p class="lead">
+                        学生たちの革新的なアイデアを地域活性化につなげる起業家支援プロジェクトです。
+                        地域の課題解決と経済発展を目指し、次世代のリーダーを育成します。
+                        学生の情熱と地域の知恵を融合させ、持続可能な未来を創造していきます。
+                    </p>
+                </div>
+
+                <div class="card" style="margin-bottom:24px;">
+                    <h2 class="section-title">プロジェクト概要</h2>
+                    <p>
+                        地域の高齢化と若者の流出により、地域経済の活力が低下しています。
+                        学生の起業意識は高いものの、実際の起業に必要な支援やメンタリングの機会が不足している状況です。
+                    </p>
+                    <dl>
+                        <dt>プロジェクト主催</dt>
+                        <dd>東京都立大学 学生起業支援センター</dd>
+                    </dl>
+                    <div>
+                        <h3 class="section-title" style="font-size:18px;">寄付金の活用方法</h3>
+                        <ul class="list-dot">
+                            <li>起業支援プログラムの運営費</li>
+                            <li>メンタリング制度の充実</li>
+                            <li>地域連携イベントの開催</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card message" style="margin-bottom:24px;">
+                    <div class="image-placeholder">メッセージ画像 (4:5)</div>
+                    <div>
+                        <div class="quote">“地域と学生をつなぐ架け橋として”</div>
+                        <div class="affiliation">（東京都立大学　学生起業支援センター長）</div>
+                        <p>
+                            私たち学生は、地域の未来を担う存在として、革新的なアイデアと情熱を持っています。
+                            しかし、それを実現するためには皆様のご支援が不可欠です。
+                            このプロジェクトを通じて、地域と学生が手を取り合い、新しい価値を創造していきます。
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom:24px;">
+                    <h2 class="section-title">よくある質問</h2>
+                    <div class="faq">
+                        <div class="faq-item">
+                            <strong>Q. 寄付金はどのように使われますか？</strong>
+                            <span>起業支援プログラムの運営費、メンタリング制度の充実、地域連携イベントの開催に使用されます。</span>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q. 税額控除は受けられますか？</strong>
+                            <span>はい、ふるさと納税の制度により、寄付金額から2,000円を差し引いた金額が所得税・住民税から控除されます。</span>
+                        </div>
+                        <div class="faq-item">
+                            <strong>Q. プロジェクトの進捗はどこで確認できますか？</strong>
+                            <span>プロジェクトの進捗はWebサイトで公開予定です。寄付者の方には詳細なレポートをお送りします。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="section service">
+                    <div class="inner">
+                        <h2>SCSKのふるさと納税とは</h2>
+                        <div class="divider"></div>
+                        <p>
+                            応援した教育機関や地域の教育活動プロジェクトに、「ふるさと納税」の仕組みを使って気軽に寄付できるサービスです。
+                            1000円から簡単に寄付でき、地元の方も控除を受けられます。
+                        </p>
+                        <div class="section-title" style="margin-top:24px;">ご利用フロー</div>
+                        <div class="flow-steps">
+                            <div class="flow-step">
+                                <div class="badge">01</div>
+                                <div>
+                                    <strong>アカウント登録 / ログインする</strong>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="badge">02</div>
+                                <div>
+                                    <strong>寄付したいプロジェクトを選ぶ</strong>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="badge">03</div>
+                                <div>
+                                    <strong>寄付の申し込みを行い、入金する</strong>
+                                    <div class="note">※クレジットカードでのご入金となります。</div>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="badge">04</div>
+                                <div>
+                                    <strong>自治体から「寄付金受領証明書」が届く</strong>
+                                </div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="badge">05</div>
+                                <div>
+                                    <strong>証明書を添付して確定申告</strong>
+                                    <div class="note">ワンストップ特例制度を利用する場合、確定申告は不要です。</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="section-title" style="margin-top:24px;">税金控除のポイント</div>
+                        <p>
+                            一般的なふるさと納税と同様に、寄付をすることで税金の控除が受けられます。
+                            寄付額のうち2,000円を自己負担とし、残りが所得税や住民税から控除されます。
+                            控除額の上限は収入や家族構成によって異なります。
+                        </p>
+                        <p class="note" style="margin-top:12px;">
+                            ふるさと納税の詳しい内容については総務省のHPをご確認ください。
+                        </p>
+                    </div>
+                </section>
+            </div>
+
+            <div class="right-column">
+                <div class="share" style="margin-bottom:12px;">
+                    <a href="#" class="btn-facebook">Facebookでシェア</a>
+                    <a href="#" class="btn-x">Xに投稿</a>
+                    <a href="#" class="btn-line">LINEで送る</a>
+                </div>
+                <div class="card" style="margin-bottom:12px;">
+                    <div class="stat-card" style="margin-bottom:12px;">
+                        <h3>支援総額</h3>
+                        <div class="big">1,250,000<span class="sub">円</span></div>
+                        <p class="note">寄付者数 89 人</p>
+                        <button class="primary-btn">このプロジェクトに寄付する</button>
+                    </div>
+                    <div class="pill-buttons">
+                        <div class="pill">応援する (42)</div>
+                        <div class="pill">いいね！ (156)</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin:0 0 8px;color:#e834a3;font-size:24px;">Yell</h3>
+                    <p style="margin:0 0 18px;font-weight:700;">ユーザーの応援コメント</p>
+                    <div class="comment-placeholder">
+                        応援コメントがまだありません。<br>
+                        寄付する際やコンテンツから応援コメントを投稿できます。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="margin-top:40px;background:#2b1700;color:#fff;text-align:center;padding:18px 12px;font-size:12px;">
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:8px;opacity:0.8;">
+            <a href="#" style="color:#fff;font-weight:700;">利用規約</a>
+            <a href="#" style="color:#fff;font-weight:700;">運営会社</a>
+            <a href="#" style="color:#fff;font-weight:700;">お問い合わせ</a>
+        </div>
+        <div>Copyright © SCSK Corporation</div>
+    </footer>
+</body>
+</html>

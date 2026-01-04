@@ -669,6 +669,131 @@
             color: var(--text);
         }
       .list-dot li { margin-bottom: 8px; }
+      .disclaimer-banner {
+        background: #fff4e5;
+        border-bottom: 1px solid #ffb347;
+        color: #3e2100;
+        position: sticky;
+        top: 0;
+        z-index: 60;
+        background-image: linear-gradient(135deg, rgba(255, 227, 186, 0.65) 0 16px, transparent 16px 32px);
+        background-size: 32px 100%;
+        animation: banner-glow 9s ease-in-out infinite;
+      }
+      .disclaimer-banner__inner {
+        margin: 0 auto;
+        max-width: 1200px;
+        padding: 12px 16px;
+        text-align: center;
+        font-weight: 700;
+        line-height: 1.6;
+        font-size: 14px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+      }
+      .disclaimer-text {
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+      .no-action {
+        pointer-events: none;
+        cursor: default;
+      }
+      .donation-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        z-index: 80;
+      }
+      .donation-modal {
+        width: min(440px, 100%);
+        border-radius: 16px;
+        background: #ffffff;
+        box-shadow: 0 12px 36px rgba(0, 0, 0, 0.12);
+        padding: 24px;
+        border: 1px solid #ffe0d0;
+        outline: none;
+        animation: modal-pop 0.25s ease;
+        position: relative;
+      }
+      .donation-modal__title {
+        margin: 0 0 8px;
+        font-weight: 800;
+        font-size: 18px;
+        color: #9c1c1c;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .donation-modal__badge {
+        display: inline-block;
+        background: #ff5e17;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+      }
+      .donation-modal__desc {
+        margin: 0 0 16px;
+        line-height: 1.6;
+        color: #3e2100;
+      }
+      .donation-modal__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ffb347;
+        background: #fff7f0;
+        color: #9c1c1c;
+        border-radius: 50%;
+        font-size: 18px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
+      }
+      .donation-modal__close:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(255, 94, 23, 0.3);
+      }
+      .donation-modal__close:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+      .modal-open {
+        overflow: hidden;
+      }
+      @keyframes modal-pop {
+        0% { transform: translateY(6px) scale(0.98); opacity: 0; }
+        100% { transform: translateY(0) scale(1); opacity: 1; }
+      }
+      @media (min-width: 1024px) {
+        .disclaimer-banner__inner {
+          padding: 14px 24px;
+          font-size: 15px;
+        }
+      }
+      @keyframes banner-glow {
+        0%, 100% { box-shadow: 0 6px 16px rgba(255, 94, 23, 0.08); }
+        4% { box-shadow: 0 10px 22px rgba(255, 94, 23, 0.23); }
+        8% { box-shadow: 0 6px 16px rgba(255, 94, 23, 0.08); }
+      }
+      @keyframes icon-nudge {
+        0%, 92%, 100% { transform: translateY(0); }
+        46% { transform: translateY(-2px); }
+      }
 
     </style>
   </head>
@@ -735,6 +860,25 @@
         </nav>
       </div>
     </header>
+    <div class="disclaimer-banner" role="alert">
+      <div class="disclaimer-banner__inner">
+        <span class="disclaimer-text">このページは「SCSKのふるさと納税」を模倣したアンケート専用のページであり、実際の寄付受付ではありません。<br>アンケート実施のためSCSKから許可を得て公開しています。</span>
+      </div>
+    </div>
+    <div id="donation-modal" class="donation-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title" aria-describedby="donation-modal-desc" hidden>
+      <div class="donation-modal" tabindex="-1">
+        <p class="donation-modal__title" id="donation-modal-title">
+          <span class="donation-modal__badge">お知らせ</span>
+          寄付は行えません
+        </p>
+        <button type="button" class="donation-modal__close" id="donation-modal-close" aria-label="閉じる">
+          ×
+        </button>
+        <p class="donation-modal__desc" id="donation-modal-desc">
+          このページはアンケート専用であるため実際に公開されているプロジェクトではありません。
+        </p>
+      </div>
+    </div>
     <main class="bg-[#FFFDFA]">
       <div class="min-h-screen bg-[#fffdfa]">
         <div class="mx-auto flex max-w-6xl items-center pt-5 pb-[30px] max-lg:flex-col max-lg:justify-center lg:justify-between lg:pb-[52px]">
@@ -749,19 +893,19 @@
               秋田県秋田市
             </p>
             <span class="block text-center font-bold text-[20px] text-text-dark leading-8 tracking-wide">
-              地域貢献活動を行うサークル団体等への支援
+              企業の実課題を学生が解決するプロジェクトへの支援
             </span>
           </div>
           <div class="flex gap-3 max-lg:hidden">
-            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fscskfurusato.jp%2Fproject%2Fo4h_fylqgw2h4ywtqlhte-3qwkeakvicps1ghfpor" target="_blank" class="flex w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#0866ff] text-[12px] text-white" rel="noreferrer">
+            <a target="_blank" class="no-action flex w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#0866ff] text-[12px] text-white" rel="noreferrer">
               <img src="./assets/images/social/icon-facebook.png" alt="" class="h-[18px] w-[18px]">
               シェア
             </a>
-            <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fscskfurusato.jp%2Fproject%2Fo4h_fylqgw2h4ywtqlhte-3qwkeakvicps1ghfpor" target="_blank" class="flex w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#000000] text-[12px] text-white" rel="noreferrer">
+            <a target="_blank" class="no-action flex w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#000000] text-[12px] text-white" rel="noreferrer">
               <img src="./assets/images/social/icon-x.png" alt="" class="h-[12px] w-[12px]">
               Post
             </a>
-            <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fscskfurusato.jp%2Fproject%2Fo4h_fylqgw2h4ywtqlhte-3qwkeakvicps1ghfpor" target="_blank" class="flex h-[30px] w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#06c755] text-[12px] text-white" rel="noreferrer">
+            <a target="_blank" class="no-action flex h-[30px] w-[97px] items-center justify-center gap-x-2 rounded-lg bg-[#06c755] text-[12px] text-white" rel="noreferrer">
               <img src="./assets/images/social/icon-line.png" alt="" class="h-[18px] w-[18px]">
               LINEで送る
             </a>
@@ -827,7 +971,7 @@
                         1人
                       </span>
                     </div>
-                    <button type="button" class="block w-full rounded-[30px] bg-[#FF5E17] px-4 py-[12px] text-center font-bold text-[16px] text-white shadow-[0_4px_4px_0_#00000040] disabled:cursor-not-allowd disabled:opacity-50">
+                    <button type="button" class="block w-full rounded-[30px] bg-[#FF5E17] px-4 py-[12px] text-center font-bold text-[16px] text-white shadow-[0_4px_4px_0_#00000040] disabled:cursor-not-allowd disabled:opacity-50" data-donation-button>
                       このプロジェクトに寄付する
                     </button>
                   </div>
@@ -1037,7 +1181,7 @@
                     1人
                   </span>
                 </div>
-                <button type="button" class="block w-full rounded-[30px] bg-[#FF5E17] px-6 py-[12px] text-center font-bold text-[18px] text-white shadow-[0_4px_4px_0_#00000040] disabled:cursor-not-allowd disabled:opacity-50" data-testid="donate-button">
+                <button type="button" class="block w-full rounded-[30px] bg-[#FF5E17] px-6 py-[12px] text-center font-bold text-[18px] text-white shadow-[0_4px_4px_0_#00000040] disabled:cursor-not-allowd disabled:opacity-50" data-testid="donate-button" data-donation-button>
                   このプロジェクトに寄付する
                 </button>
               </div>
@@ -1209,10 +1353,10 @@
                 </div>
               </div>
             </div>
-            <div class="max-lg:hidden">
+            <div class="max-lg:hidden" data-carousel>
               <div class="relative" role="region" aria-roledescription="carousel">
                 <div class="overflow-hidden pb-6 max-lg:px-5 lg:pr-[96px]">
-                  <div class="flex -ml-4 pl-[6px]" style="transform: translate3d(0px, 0px, 0px);">
+                  <div class="flex -ml-4 pl-[6px]" data-carousel-track style="transform: translate3d(0px, 0px, 0px);">
                     <div role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 max-lg:pl-[15px] lg:pl-4 basis-auto">
                       <a class="" href="https://scskfurusato.jp/project/aim1cr5lgx8cdxlqyogui1xjrslthzgpw3popvfsr" data-discover="true">
                         <div class="relative flex h-fit flex-col justify-end max-lg:w-[300px] lg:w-[400px]" data-testid="project-card">
@@ -1399,9 +1543,71 @@
                         </div>
                       </a>
                     </div>
+                    <div role="group" aria-roledescription="slide" class="min-w-0 shrink-0 grow-0 max-lg:pl-[15px] lg:pl-4 basis-auto">
+                      <a class="" href="https://scskfurusato.jp/project/o4h_fylqgw2h4ywtqlhte-3qwkeakvicps1ghfpor" data-discover="true">
+                        <div class="relative flex h-fit flex-col justify-end max-lg:w-[300px] lg:w-[400px]" data-testid="project-card">
+                          <div class="relative" data-testid="project-thumb">
+                            <picture>
+                              <source media="(min-width: 640px)" srcset="./assets/images/hero/hero-main-03.png">
+                              <img src="./assets/images/hero/hero-main-03.png" alt="地域貢献活動を行うサークル団体等への支援" loading="lazy" class="absolute top-0 rounded-[15px] border border-[#E2E2E2] object-cover max-lg:left-[25px] max-lg:h-[140px] max-lg:w-[250px] lg:left-[20px] lg:h-[200px] lg:w-[350px]">
+                            </picture>
+                          </div>
+                          <div class="flex h-fit flex-col justify-start gap-4 rounded-[20px] border bg-white px-6 pb-6 shadow-lg max-lg:mt-[18px] max-lg:pt-[138px] lg:mt-[32px] lg:pt-[184px]" data-testid="project-content">
+                            <div>
+                              <span class="font-bold max-lg:text-[15px] lg:text-[16px]" data-testid="project-organization-name">
+                                秋田県立大学
+                              </span>
+                              <span class="ml-4 font-medium max-lg:text-[11px] lg:text-[12px]" data-testid="project-municipality-name">
+                                秋田県 秋田市
+                              </span>
+                            </div>
+                            <p class="font-bold leading-[28px] max-lg:text-[16px] lg:text-[20px]" data-testid="project-name">
+                              地域貢献活動を行うサークル団体等への支援
+                            </p>
+                            <p class="line-clamp-5 text-[14px]" data-testid="project-summary">
+                              秋田県立大学は地域に根差した大学として開学し、秋田市を代表する「竿燈まつり」に出竿する「竿燈会」や、海岸のごみ拾い等を行う「エコの輪サポーターズ」、献血等の活動をサポートする「赤十字奉仕団」など、地域に密着・貢献し、地域を盛り上げるサークルがいくつもあります。これらのサークルには県内出身学生はもちろん、県外出身の学生も多く、サークル活動を通じて秋田市のファンになっています。これら学生の主体的な活動を支援し、やがて社会人として成長するための貴重な経験の提供に一層寄与できるよう、ぜひ温かいご支援をお願いいたします。
+                            </p>
+                            <div class="flex justify-center gap-6 rounded-[6px] bg-[#F0E4D6] py-[10px]" data-testid="project-donate-info">
+                              <p class="flex items-center gap-2 max-lg:text-[10px] lg:text-[13px]">
+                                支援総額
+                                <span class="font-bold max-lg:text-[12px] lg:text-[16px]" data-testid="project-donation-total">
+                                  10,000円
+                                </span>
+                              </p>
+                              <p class="flex items-center gap-2 max-lg:text-[10px] lg:text-[13px]">
+                                寄付者
+                                <span class="font-bold max-lg:text-[12px] lg:text-[16px]" data-testid="project-donation-count">
+                                  1人
+                                </span>
+                              </p>
+                            </div>
+                            <div class="flex justify-center gap-7" data-testid="project-cheer-info">
+                              <div class="flex items-center gap-2">
+                                <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path d="M11.7722 7.73613C11.7662 7.68804 11.7583 7.63896 11.7513 7.59136L11.6393 6.81894L11.4648 5.61716L11.2685 4.2617L11.0875 3.01233L10.9596 2.12934L10.9279 1.91169C10.8743 1.54333 10.6353 1.23099 10.2675 1.10754C10.0359 1.0292 9.81037 1.04755 9.60512 1.15315C9.50249 1.20669 9.42663 1.27511 9.34632 1.3584L9.33938 1.36534C9.2427 1.44963 9.13859 1.5235 9.02604 1.58597C8.94077 1.62216 8.85202 1.65141 8.7613 1.67471C8.58034 1.70347 8.39541 1.7109 8.2085 1.70297C7.69586 1.65339 7.18769 1.51755 6.68646 1.3817C6.11284 1.22405 5.53872 1.05845 4.9537 0.966239C3.73706 0.773876 2.49017 0.947895 1.44953 1.49573C1.40094 1.4055 1.33649 1.32271 1.25865 1.25925C1.12181 1.14769 0.912595 1.07085 0.741055 1.08969C0.564061 1.10902 0.386572 1.17843 0.280971 1.32023C0.176361 1.464 0.122321 1.63257 0.149589 1.8175L0.195201 2.13529L0.29287 2.80559C0.293365 2.81897 0.291878 2.83236 0.293365 2.84575C0.295844 2.87599 0.302785 2.90673 0.311709 2.93747L0.409874 3.6147L0.663713 5.3658L0.945317 7.30976L1.1352 8.61862L1.13619 8.62606L1.2294 9.26661L1.46291 10.8789L1.65974 12.2358L1.80103 13.212C1.82334 13.3662 1.84466 13.5194 1.86796 13.6746L1.87143 13.6954C1.89672 13.8704 2.00083 14.0509 2.14312 14.1674C2.28045 14.2785 2.48918 14.3558 2.66121 14.3365C2.83771 14.3171 3.0152 14.2482 3.1213 14.1064C3.22591 13.9641 3.27945 13.7951 3.25268 13.6092L3.20657 13.2914L3.08163 12.4287L2.89572 11.1476L2.67014 9.58986L2.64237 9.39849C2.65477 9.38956 2.66716 9.38113 2.68005 9.37171C2.80003 9.28247 2.92249 9.19918 3.04991 9.12234C3.097 9.09408 3.14559 9.06879 3.19368 9.04252C3.49016 8.89973 3.80647 8.79413 4.13368 8.72224C4.52039 8.65134 4.91801 8.61714 5.31711 8.63697C5.95419 8.69646 6.58185 8.86849 7.20405 9.04152C7.5268 9.13175 7.84807 9.22199 8.17231 9.29685C8.53572 9.38014 8.89565 9.43121 9.26253 9.45253C9.93878 9.49318 10.6358 9.31569 11.1277 8.88733C11.2853 8.7505 11.4326 8.60573 11.558 8.44064C11.6135 8.36776 11.6636 8.29141 11.7062 8.21109C11.7747 8.07723 11.7875 7.91759 11.7751 7.76489C11.7737 7.75497 11.7737 7.74555 11.7722 7.73613ZM10.2576 7.75497C10.1644 7.8343 10.0652 7.90519 9.95712 7.96518C9.86788 8.00336 9.77566 8.03459 9.68147 8.05889C9.49951 8.08814 9.3131 8.09508 9.12619 8.08714C8.67305 8.04302 8.22288 7.92849 7.78015 7.80752C7.26949 7.66821 6.76231 7.5165 6.24571 7.40743C5.66416 7.28646 5.06674 7.22696 4.48668 7.27853C3.90413 7.33058 3.31763 7.4466 2.79309 7.67465C2.66915 7.7282 2.54718 7.78621 2.4282 7.84917L2.26112 6.69747L2.01174 4.9776L1.79608 3.48927C1.77327 3.33112 1.75096 3.17296 1.72815 3.0153C1.89474 2.8869 2.06925 2.7689 2.25666 2.66677C2.55759 2.5225 2.87787 2.41739 3.20905 2.34501C3.59675 2.2751 3.99437 2.2404 4.39496 2.26023C5.19019 2.3336 5.97005 2.57852 6.74843 2.78526C7.1282 2.8859 7.51143 2.9806 7.89814 3.03117C8.13364 3.06042 8.37261 3.07975 8.60711 3.07628C8.83418 3.07281 9.04984 3.03464 9.26749 2.98605C9.41176 2.95432 9.5476 2.90276 9.67899 2.84178L9.83714 3.93498L10.0845 5.64046L10.2972 7.10946C10.3225 7.28249 10.3493 7.45651 10.3736 7.63003C10.3374 7.67366 10.2977 7.71432 10.2576 7.75497Z" fill="#B4AB99">
+                                  </path>
+                                </svg>
+                                <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
+                                  10人が応援中
+                                </p>
+                              </div>
+                              <div class="flex items-center gap-2">
+                                <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
+                                  <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
+                                  </path>
+                                </svg>
+                                <p class="font-bold text-[13px]" data-testid="project-like-count">
+                                  12件のいいね！
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <button class="items-center justify-center gap-2 whitespace-nowrap font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border hover:bg-accent hover:text-accent-foreground absolute h-[78px] w-[78px] rounded-full border-[#FF5E17] bg-white shadow-[0_3px_3px_0_#007CB44D] max-lg:hidden -translate-y-1/2 top-1/2 right-[92%] hidden" disabled="">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border hover:bg-accent hover:text-accent-foreground absolute h-[78px] w-[78px] rounded-full border-[#FF5E17] bg-white shadow-[0_3px_3px_0_#007CB44D] max-lg:hidden -translate-y-1/2 top-1/2 right-[92%]" data-carousel-prev>
                   <svg width="9" height="15" viewBox="0 0 9 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="!size-[30px]">
                     <path d="M0.00115115 7.41093C0.0107316 7.712 0.130586 7.9977 0.338643 8.2163L6.22941 14.3525C6.69922 14.8415 7.47677 14.8568 7.96671 14.387C8.45569 13.9163 8.47103 13.1387 8.00122 12.6497L2.93124 7.36497L8.00122 2.08021C8.47104 1.59123 8.4557 0.812695 7.96671 0.342904C7.47677 -0.127866 6.69919 -0.111569 6.22941 0.377421L0.338643 6.51363C0.108531 6.75428 -0.0132238 7.07825 0.00115115 7.41093Z" fill="#FF5E17">
                     </path>
@@ -1410,7 +1616,7 @@
                     Previous slide
                   </span>
                 </button>
-                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border hover:bg-accent hover:text-accent-foreground absolute h-[78px] w-[78px] rounded-full border-[#FF5E17] bg-white shadow-[0_3px_3px_0_#007CB44D] max-lg:hidden -translate-y-1/2 top-1/2 left-[92%]">
+                <button class="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border hover:bg-accent hover:text-accent-foreground absolute h-[78px] w-[78px] rounded-full border-[#FF5E17] bg-white shadow-[0_3px_3px_0_#007CB44D] max-lg:hidden -translate-y-1/2 top-1/2 left-[92%]" data-carousel-next>
                   <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="!size-[30px]">
                     <path d="M8.43244 8.08907C8.42286 7.788 8.30301 7.5023 8.09495 7.2837L2.20419 1.14749C1.73437 0.658512 0.956823 0.64317 0.466883 1.11298C-0.0220976 1.58375 -0.0374403 2.3613 0.432371 2.85028L5.50236 8.13503L0.432371 13.4198C-0.0374498 13.9088 -0.0221071 14.6873 0.466883 15.1571C0.956823 15.6279 1.7344 15.6116 2.20419 15.1226L8.09495 8.98637C8.32506 8.74572 8.44682 8.42175 8.43244 8.08907Z" fill="#FF5E17">
                     </path>
@@ -1426,7 +1632,7 @@
                 <div class="relative flex h-fit flex-col justify-end lg:w-[400px] max-lg:w-full" data-testid="project-card">
                   <div class="relative" data-testid="project-thumb">
                     <picture>
-                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/e6408fc553cd4ba2b13c1a1cc0e22982/%E2%91%A1%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.jpg?fit=clip&amp;h=300&amp;fm=webp&amp;q=50">
+                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/e6408fc553cd4ba2b13c1a1cc0e22982/%E2%91%A1%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.jpg?fit=clip&h=300&fm=webp&q=50">
                       <img src="./assets/images/hero/hero-main-02.jpg" alt="" loading="lazy" class="absolute top-0 rounded-[15px] border border-[#E2E2E2] object-cover lg:left-[20px] lg:h-[200px] lg:w-[350px] max-lg:left-[25px] max-lg:h-[140px] max-lg:w-[calc(100%_-_50px)]">
                     </picture>
                   </div>
@@ -1463,30 +1669,90 @@
                       <div class="flex items-center gap-2">
                         <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M11.7722 7.73613C11.7662 7.68804 11.7583 7.63896 11.7513 7.59136L11.6393 6.81894L11.4648 5.61716L11.2685 4.2617L11.0875 3.01233L10.9596 2.12934L10.9279 1.91169C10.8743 1.54333 10.6353 1.23099 10.2675 1.10754C10.0359 1.0292 9.81037 1.04755 9.60512 1.15315C9.50249 1.20669 9.42663 1.27511 9.34632 1.3584L9.33938 1.36534C9.2427 1.44963 9.13859 1.5235 9.02604 1.58597C8.94077 1.62216 8.85202 1.65141 8.7613 1.67471C8.58034 1.70347 8.39541 1.7109 8.2085 1.70297C7.69586 1.65339 7.18769 1.51755 6.68646 1.3817C6.11284 1.22405 5.53872 1.05845 4.9537 0.966239C3.73706 0.773876 2.49017 0.947895 1.44953 1.49573C1.40094 1.4055 1.33649 1.32271 1.25865 1.25925C1.12181 1.14769 0.912595 1.07085 0.741055 1.08969C0.564061 1.10902 0.386572 1.17843 0.280971 1.32023C0.176361 1.464 0.122321 1.63257 0.149589 1.8175L0.195201 2.13529L0.29287 2.80559C0.293365 2.81897 0.291878 2.83236 0.293365 2.84575C0.295844 2.87599 0.302785 2.90673 0.311709 2.93747L0.409874 3.6147L0.663713 5.3658L0.945317 7.30976L1.1352 8.61862L1.13619 8.62606L1.2294 9.26661L1.46291 10.8789L1.65974 12.2358L1.80103 13.212C1.82334 13.3662 1.84466 13.5194 1.86796 13.6746L1.87143 13.6954C1.89672 13.8704 2.00083 14.0509 2.14312 14.1674C2.28045 14.2785 2.48918 14.3558 2.66121 14.3365C2.83771 14.3171 3.0152 14.2482 3.1213 14.1064C3.22591 13.9641 3.27945 13.7951 3.25268 13.6092L3.20657 13.2914L3.08163 12.4287L2.89572 11.1476L2.67014 9.58986L2.64237 9.39849C2.65477 9.38956 2.66716 9.38113 2.68005 9.37171C2.80003 9.28247 2.92249 9.19918 3.04991 9.12234C3.097 9.09408 3.14559 9.06879 3.19368 9.04252C3.49016 8.89973 3.80647 8.79413 4.13368 8.72224C4.52039 8.65134 4.91801 8.61714 5.31711 8.63697C5.95419 8.69646 6.58185 8.86849 7.20405 9.04152C7.5268 9.13175 7.84807 9.22199 8.17231 9.29685C8.53572 9.38014 8.89565 9.43121 9.26253 9.45253C9.93878 9.49318 10.6358 9.31569 11.1277 8.88733C11.2853 8.7505 11.4326 8.60573 11.558 8.44064C11.6135 8.36776 11.6636 8.29141 11.7062 8.21109C11.7747 8.07723 11.7875 7.91759 11.7751 7.76489C11.7737 7.75497 11.7737 7.74555 11.7722 7.73613ZM10.2576 7.75497C10.1644 7.8343 10.0652 7.90519 9.95712 7.96518C9.86788 8.00336 9.77566 8.03459 9.68147 8.05889C9.49951 8.08814 9.3131 8.09508 9.12619 8.08714C8.67305 8.04302 8.22288 7.92849 7.78015 7.80752C7.26949 7.66821 6.76231 7.5165 6.24571 7.40743C5.66416 7.28646 5.06674 7.22696 4.48668 7.27853C3.90413 7.33058 3.31763 7.4466 2.79309 7.67465C2.66915 7.7282 2.54718 7.78621 2.4282 7.84917L2.26112 6.69747L2.01174 4.9776L1.79608 3.48927C1.77327 3.33112 1.75096 3.17296 1.72815 3.0153C1.89474 2.8869 2.06925 2.7689 2.25666 2.66677C2.55759 2.5225 2.87787 2.41739 3.20905 2.34501C3.59675 2.2751 3.99437 2.2404 4.39496 2.26023C5.19019 2.3336 5.97005 2.57852 6.74843 2.78526C7.1282 2.8859 7.51143 2.9806 7.89814 3.03117C8.13364 3.06042 8.37261 3.07975 8.60711 3.07628C8.83418 3.07281 9.04984 3.03464 9.26749 2.98605C9.41176 2.95432 9.5476 2.90276 9.67899 2.84178L9.83714 3.93498L10.0845 5.64046L10.2972 7.10946C10.3225 7.28249 10.3493 7.45651 10.3736 7.63003C10.3374 7.67366 10.2977 7.71432 10.2576 7.75497Z" fill="#B4AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
-                          10人が応援中
-                        </p>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
-                          <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-like-count">
-                          11件のいいね！
-                        </p>
-                      </div>
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
+                        10人が応援中
+                      </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
+                        <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-like-count">
+                        11件のいいね！
+                      </p>
                     </div>
                   </div>
                 </div>
               </a>
+
+              <a class="block max-lg:w-full" href="https://scskfurusato.jp/project/o4h_fylqgw2h4ywtqlhte-3qwkeakvicps1ghfpor" data-discover="true">
+                <div class="relative flex h-fit flex-col justify-end lg:w-[400px] max-lg:w-full" data-testid="project-card">
+                  <div class="relative" data-testid="project-thumb">
+                    <picture>
+                      <source media="(min-width: 640px)" srcset="./assets/images/hero/hero-main-03.png">
+                      <img src="./assets/images/hero/hero-main-03.png" alt="地域貢献活動を行うサークル団体等への支援" loading="lazy" class="absolute top-0 rounded-[15px] border border-[#E2E2E2] object-cover lg:left-[20px] lg:h-[200px] lg:w-[350px] max-lg:left-[25px] max-lg:h-[140px] max-lg:w-[calc(100%_-_50px)]">
+                    </picture>
+                  </div>
+                  <div class="flex h-fit flex-col justify-start gap-4 rounded-[20px] border bg-white px-6 pb-6 shadow-lg max-lg:mt-[18px] max-lg:pt-[138px] lg:mt-[32px] lg:pt-[184px]" data-testid="project-content">
+                    <div>
+                      <span class="font-bold max-lg:text-[15px] lg:text-[16px]" data-testid="project-organization-name">
+                        秋田県立大学
+                      </span>
+                      <span class="ml-4 font-medium max-lg:text-[11px] lg:text-[12px]" data-testid="project-municipality-name">
+                        秋田県 秋田市
+                      </span>
+                    </div>
+                    <p class="font-bold leading-[28px] max-lg:text-[16px] lg:text-[20px]" data-testid="project-name">
+                      地域貢献活動を行うサークル団体等への支援
+                    </p>
+                    <p class="line-clamp-5 text-[14px]" data-testid="project-summary">
+                      秋田県立大学は地域に根差した大学として開学し、秋田市を代表する「竿燈まつり」に出竿する「竿燈会」や、海岸のごみ拾い等を行う「エコの輪サポーターズ」、献血等の活動をサポートする「赤十字奉仕団」など、地域に密着・貢献し、地域を盛り上げるサークルがいくつもあります。これらのサークルには県内出身学生はもちろん、県外出身の学生も多く、サークル活動を通じて秋田市のファンになっています。これら学生の主体的な活動を支援し、やがて社会人として成長するための貴重な経験の提供に一層寄与できるよう、ぜひ温かいご支援をお願いいたします。
+                    </p>
+                    <div class="flex justify-center gap-6 rounded-[6px] bg-[#F0E4D6] py-[10px]" data-testid="project-donate-info">
+                      <p class="flex items-center gap-2 max-lg:text-[10px] lg:text-[13px]">
+                        支援総額
+                        <span class="font-bold max-lg:text-[12px] lg:text-[16px]" data-testid="project-donation-total">
+                          10,000円
+                        </span>
+                      </p>
+                      <p class="flex items-center gap-2 max-lg:text-[10px] lg:text-[13px]">
+                        寄付者
+                        <span class="font-bold max-lg:text-[12px] lg:text-[16px]" data-testid="project-donation-count">
+                          1人
+                        </span>
+                      </p>
+                    </div>
+                    <div class="flex justify-center gap-7" data-testid="project-cheer-info">
+                      <div class="flex items-center gap-2">
+                        <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M11.7722 7.73613C11.7662 7.68804 11.7583 7.63896 11.7513 7.59136L11.6393 6.81894L11.4648 5.61716L11.2685 4.2617L11.0875 3.01233L10.9596 2.12934L10.9279 1.91169C10.8743 1.54333 10.6353 1.23099 10.2675 1.10754C10.0359 1.0292 9.81037 1.04755 9.60512 1.15315C9.50249 1.20669 9.42663 1.27511 9.34632 1.3584L9.33938 1.36534C9.2427 1.44963 9.13859 1.5235 9.02604 1.58597C8.94077 1.62216 8.85202 1.65141 8.7613 1.67471C8.58034 1.70347 8.39541 1.7109 8.2085 1.70297C7.69586 1.65339 7.18769 1.51755 6.68646 1.3817C6.11284 1.22405 5.53872 1.05845 4.9537 0.966239C3.73706 0.773876 2.49017 0.947895 1.44953 1.49573C1.40094 1.4055 1.33649 1.32271 1.25865 1.25925C1.12181 1.14769 0.912595 1.07085 0.741055 1.08969C0.564061 1.10902 0.386572 1.17843 0.280971 1.32023C0.176361 1.464 0.122321 1.63257 0.149589 1.8175L0.195201 2.13529L0.29287 2.80559C0.293365 2.81897 0.291878 2.83236 0.293365 2.84575C0.295844 2.87599 0.302785 2.90673 0.311709 2.93747L0.409874 3.6147L0.663713 5.3658L0.945317 7.30976L1.1352 8.61862L1.13619 8.62606L1.2294 9.26661L1.46291 10.8789L1.65974 12.2358L1.80103 13.212C1.82334 13.3662 1.84466 13.5194 1.86796 13.6746L1.87143 13.6954C1.89672 13.8704 2.00083 14.0509 2.14312 14.1674C2.28045 14.2785 2.48918 14.3558 2.66121 14.3365C2.83771 14.3171 3.0152 14.2482 3.1213 14.1064C3.22591 13.9641 3.27945 13.7951 3.25268 13.6092L3.20657 13.2914L3.08163 12.4287L2.89572 11.1476L2.67014 9.58986L2.64237 9.39849C2.65477 9.38956 2.66716 9.38113 2.68005 9.37171C2.80003 9.28247 2.92249 9.19918 3.04991 9.12234C3.097 9.09408 3.14559 9.06879 3.19368 9.04252C3.49016 8.89973 3.80647 8.79413 4.13368 8.72224C4.52039 8.65134 4.91801 8.61714 5.31711 8.63697C5.95419 8.69646 6.58185 8.86849 7.20405 9.04152C7.5268 9.13175 7.84807 9.22199 8.17231 9.29685C8.53572 9.38014 8.89565 9.43121 9.26253 9.45253C9.93878 9.49318 10.6358 9.31569 11.1277 8.88733C11.2853 8.7505 11.4326 8.60573 11.558 8.44064C11.6135 8.36776 11.6636 8.29141 11.7062 8.21109C11.7747 8.07723 11.7875 7.91759 11.7751 7.76489C11.7737 7.75497 11.7737 7.74555 11.7722 7.73613ZM10.2576 7.75497C10.1644 7.8343 10.0652 7.90519 9.95712 7.96518C9.86788 8.00336 9.77566 8.03459 9.68147 8.05889C9.49951 8.08814 9.3131 8.09508 9.12619 8.08714C8.67305 8.04302 8.22288 7.92849 7.78015 7.80752C7.26949 7.66821 6.76231 7.5165 6.24571 7.40743C5.66416 7.28646 5.06674 7.22696 4.48668 7.27853C3.90413 7.33058 3.31763 7.4466 2.79309 7.67465C2.66915 7.7282 2.54718 7.78621 2.4282 7.84917L2.26112 6.69747L2.01174 4.9776L1.79608 3.48927C1.77327 3.33112 1.75096 3.17296 1.72815 3.0153C1.89474 2.8869 2.06925 2.7689 2.25666 2.66677C2.55759 2.5225 2.87787 2.41739 3.20905 2.34501C3.59675 2.2751 3.99437 2.2404 4.39496 2.26023C5.19019 2.3336 5.97005 2.57852 6.74843 2.78526C7.1282 2.8859 7.51143 2.9806 7.89814 3.03117C8.13364 3.06042 8.37261 3.07975 8.60711 3.07628C8.83418 3.07281 9.04984 3.03464 9.26749 2.98605C9.41176 2.95432 9.5476 2.90276 9.67899 2.84178L9.83714 3.93498L10.0845 5.64046L10.2972 7.10946C10.3225 7.28249 10.3493 7.45651 10.3736 7.63003C10.3374 7.67366 10.2977 7.71432 10.2576 7.75497Z" fill="#B4AB99">
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
+                        10人が応援中
+                      </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
+                        <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-like-count">
+                        12件のいいね！
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </a>
+
               <a class="block max-lg:w-full" href="https://scskfurusato.jp/project/aumkr65u5rb75hqbmr21s96s87goe7o34z-448xpy" data-discover="true">
                 <div class="relative flex h-fit flex-col justify-end lg:w-[400px] max-lg:w-full" data-testid="project-card">
                   <div class="relative" data-testid="project-thumb">
                     <picture>
-                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/5ce3088219e04c919b73ba891bd9350b/%E2%91%A3%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.jpg?fit=clip&amp;h=300&amp;fm=webp&amp;q=50">
+                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/5ce3088219e04c919b73ba891bd9350b/%E2%91%A3%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.jpg?fit=clip&h=300&fm=webp&q=50">
                       <img src="./assets/images/hero/hero-main-04.jpg" alt="" loading="lazy" class="absolute top-0 rounded-[15px] border border-[#E2E2E2] object-cover lg:left-[20px] lg:h-[200px] lg:w-[350px] max-lg:left-[25px] max-lg:h-[140px] max-lg:w-[calc(100%_-_50px)]">
                     </picture>
                   </div>
@@ -1523,30 +1789,30 @@
                       <div class="flex items-center gap-2">
                         <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M11.7722 7.73613C11.7662 7.68804 11.7583 7.63896 11.7513 7.59136L11.6393 6.81894L11.4648 5.61716L11.2685 4.2617L11.0875 3.01233L10.9596 2.12934L10.9279 1.91169C10.8743 1.54333 10.6353 1.23099 10.2675 1.10754C10.0359 1.0292 9.81037 1.04755 9.60512 1.15315C9.50249 1.20669 9.42663 1.27511 9.34632 1.3584L9.33938 1.36534C9.2427 1.44963 9.13859 1.5235 9.02604 1.58597C8.94077 1.62216 8.85202 1.65141 8.7613 1.67471C8.58034 1.70347 8.39541 1.7109 8.2085 1.70297C7.69586 1.65339 7.18769 1.51755 6.68646 1.3817C6.11284 1.22405 5.53872 1.05845 4.9537 0.966239C3.73706 0.773876 2.49017 0.947895 1.44953 1.49573C1.40094 1.4055 1.33649 1.32271 1.25865 1.25925C1.12181 1.14769 0.912595 1.07085 0.741055 1.08969C0.564061 1.10902 0.386572 1.17843 0.280971 1.32023C0.176361 1.464 0.122321 1.63257 0.149589 1.8175L0.195201 2.13529L0.29287 2.80559C0.293365 2.81897 0.291878 2.83236 0.293365 2.84575C0.295844 2.87599 0.302785 2.90673 0.311709 2.93747L0.409874 3.6147L0.663713 5.3658L0.945317 7.30976L1.1352 8.61862L1.13619 8.62606L1.2294 9.26661L1.46291 10.8789L1.65974 12.2358L1.80103 13.212C1.82334 13.3662 1.84466 13.5194 1.86796 13.6746L1.87143 13.6954C1.89672 13.8704 2.00083 14.0509 2.14312 14.1674C2.28045 14.2785 2.48918 14.3558 2.66121 14.3365C2.83771 14.3171 3.0152 14.2482 3.1213 14.1064C3.22591 13.9641 3.27945 13.7951 3.25268 13.6092L3.20657 13.2914L3.08163 12.4287L2.89572 11.1476L2.67014 9.58986L2.64237 9.39849C2.65477 9.38956 2.66716 9.38113 2.68005 9.37171C2.80003 9.28247 2.92249 9.19918 3.04991 9.12234C3.097 9.09408 3.14559 9.06879 3.19368 9.04252C3.49016 8.89973 3.80647 8.79413 4.13368 8.72224C4.52039 8.65134 4.91801 8.61714 5.31711 8.63697C5.95419 8.69646 6.58185 8.86849 7.20405 9.04152C7.5268 9.13175 7.84807 9.22199 8.17231 9.29685C8.53572 9.38014 8.89565 9.43121 9.26253 9.45253C9.93878 9.49318 10.6358 9.31569 11.1277 8.88733C11.2853 8.7505 11.4326 8.60573 11.558 8.44064C11.6135 8.36776 11.6636 8.29141 11.7062 8.21109C11.7747 8.07723 11.7875 7.91759 11.7751 7.76489C11.7737 7.75497 11.7737 7.74555 11.7722 7.73613ZM10.2576 7.75497C10.1644 7.8343 10.0652 7.90519 9.95712 7.96518C9.86788 8.00336 9.77566 8.03459 9.68147 8.05889C9.49951 8.08814 9.3131 8.09508 9.12619 8.08714C8.67305 8.04302 8.22288 7.92849 7.78015 7.80752C7.26949 7.66821 6.76231 7.5165 6.24571 7.40743C5.66416 7.28646 5.06674 7.22696 4.48668 7.27853C3.90413 7.33058 3.31763 7.4466 2.79309 7.67465C2.66915 7.7282 2.54718 7.78621 2.4282 7.84917L2.26112 6.69747L2.01174 4.9776L1.79608 3.48927C1.77327 3.33112 1.75096 3.17296 1.72815 3.0153C1.89474 2.8869 2.06925 2.7689 2.25666 2.66677C2.55759 2.5225 2.87787 2.41739 3.20905 2.34501C3.59675 2.2751 3.99437 2.2404 4.39496 2.26023C5.19019 2.3336 5.97005 2.57852 6.74843 2.78526C7.1282 2.8859 7.51143 2.9806 7.89814 3.03117C8.13364 3.06042 8.37261 3.07975 8.60711 3.07628C8.83418 3.07281 9.04984 3.03464 9.26749 2.98605C9.41176 2.95432 9.5476 2.90276 9.67899 2.84178L9.83714 3.93498L10.0845 5.64046L10.2972 7.10946C10.3225 7.28249 10.3493 7.45651 10.3736 7.63003C10.3374 7.67366 10.2977 7.71432 10.2576 7.75497Z" fill="#B4AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
-                          8人が応援中
-                        </p>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
-                          <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-like-count">
-                          9件のいいね！
-                        </p>
-                      </div>
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
+                        8人が応援中
+                      </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
+                        <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-like-count">
+                        9件のいいね！
+                      </p>
                     </div>
                   </div>
                 </div>
               </a>
+
               <a class="block max-lg:w-full" href="https://scskfurusato.jp/project/2alkqk7wwxua7t2362m9wsxkdi5lzx99d2sw3ku1r" data-discover="true">
                 <div class="relative flex h-fit flex-col justify-end lg:w-[400px] max-lg:w-full" data-testid="project-card">
                   <div class="relative" data-testid="project-thumb">
                     <picture>
-                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/57a7f5f084cb438b8daf25e9bcd28ba0/%E2%91%A0%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.JPG?fit=clip&amp;h=300&amp;fm=webp&amp;q=50">
+                      <source media="(min-width: 640px)" srcset="https://images.microcms-assets.io/assets/485a2bdf1f0b49228bdcb53af06fe98e/57a7f5f084cb438b8daf25e9bcd28ba0/%E2%91%A0%E3%83%A1%E3%82%A4%E3%83%B3%E7%94%BB%E5%83%8F.JPG?fit=clip&h=300&fm=webp&q=50">
                       <img src="./assets/images/hero/hero-main-01.jpg" alt="" loading="lazy" class="absolute top-0 rounded-[15px] border border-[#E2E2E2] object-cover lg:left-[20px] lg:h-[200px] lg:w-[350px] max-lg:left-[25px] max-lg:h-[140px] max-lg:w-[calc(100%_-_50px)]">
                     </picture>
                   </div>
@@ -1583,26 +1849,25 @@
                       <div class="flex items-center gap-2">
                         <svg width="12" height="15" viewBox="0 0 12 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M11.7722 7.73613C11.7662 7.68804 11.7583 7.63896 11.7513 7.59136L11.6393 6.81894L11.4648 5.61716L11.2685 4.2617L11.0875 3.01233L10.9596 2.12934L10.9279 1.91169C10.8743 1.54333 10.6353 1.23099 10.2675 1.10754C10.0359 1.0292 9.81037 1.04755 9.60512 1.15315C9.50249 1.20669 9.42663 1.27511 9.34632 1.3584L9.33938 1.36534C9.2427 1.44963 9.13859 1.5235 9.02604 1.58597C8.94077 1.62216 8.85202 1.65141 8.7613 1.67471C8.58034 1.70347 8.39541 1.7109 8.2085 1.70297C7.69586 1.65339 7.18769 1.51755 6.68646 1.3817C6.11284 1.22405 5.53872 1.05845 4.9537 0.966239C3.73706 0.773876 2.49017 0.947895 1.44953 1.49573C1.40094 1.4055 1.33649 1.32271 1.25865 1.25925C1.12181 1.14769 0.912595 1.07085 0.741055 1.08969C0.564061 1.10902 0.386572 1.17843 0.280971 1.32023C0.176361 1.464 0.122321 1.63257 0.149589 1.8175L0.195201 2.13529L0.29287 2.80559C0.293365 2.81897 0.291878 2.83236 0.293365 2.84575C0.295844 2.87599 0.302785 2.90673 0.311709 2.93747L0.409874 3.6147L0.663713 5.3658L0.945317 7.30976L1.1352 8.61862L1.13619 8.62606L1.2294 9.26661L1.46291 10.8789L1.65974 12.2358L1.80103 13.212C1.82334 13.3662 1.84466 13.5194 1.86796 13.6746L1.87143 13.6954C1.89672 13.8704 2.00083 14.0509 2.14312 14.1674C2.28045 14.2785 2.48918 14.3558 2.66121 14.3365C2.83771 14.3171 3.0152 14.2482 3.1213 14.1064C3.22591 13.9641 3.27945 13.7951 3.25268 13.6092L3.20657 13.2914L3.08163 12.4287L2.89572 11.1476L2.67014 9.58986L2.64237 9.39849C2.65477 9.38956 2.66716 9.38113 2.68005 9.37171C2.80003 9.28247 2.92249 9.19918 3.04991 9.12234C3.097 9.09408 3.14559 9.06879 3.19368 9.04252C3.49016 8.89973 3.80647 8.79413 4.13368 8.72224C4.52039 8.65134 4.91801 8.61714 5.31711 8.63697C5.95419 8.69646 6.58185 8.86849 7.20405 9.04152C7.5268 9.13175 7.84807 9.22199 8.17231 9.29685C8.53572 9.38014 8.89565 9.43121 9.26253 9.45253C9.93878 9.49318 10.6358 9.31569 11.1277 8.88733C11.2853 8.7505 11.4326 8.60573 11.558 8.44064C11.6135 8.36776 11.6636 8.29141 11.7062 8.21109C11.7747 8.07723 11.7875 7.91759 11.7751 7.76489C11.7737 7.75497 11.7737 7.74555 11.7722 7.73613ZM10.2576 7.75497C10.1644 7.8343 10.0652 7.90519 9.95712 7.96518C9.86788 8.00336 9.77566 8.03459 9.68147 8.05889C9.49951 8.08814 9.3131 8.09508 9.12619 8.08714C8.67305 8.04302 8.22288 7.92849 7.78015 7.80752C7.26949 7.66821 6.76231 7.5165 6.24571 7.40743C5.66416 7.28646 5.06674 7.22696 4.48668 7.27853C3.90413 7.33058 3.31763 7.4466 2.79309 7.67465C2.66915 7.7282 2.54718 7.78621 2.4282 7.84917L2.26112 6.69747L2.01174 4.9776L1.79608 3.48927C1.77327 3.33112 1.75096 3.17296 1.72815 3.0153C1.89474 2.8869 2.06925 2.7689 2.25666 2.66677C2.55759 2.5225 2.87787 2.41739 3.20905 2.34501C3.59675 2.2751 3.99437 2.2404 4.39496 2.26023C5.19019 2.3336 5.97005 2.57852 6.74843 2.78526C7.1282 2.8859 7.51143 2.9806 7.89814 3.03117C8.13364 3.06042 8.37261 3.07975 8.60711 3.07628C8.83418 3.07281 9.04984 3.03464 9.26749 2.98605C9.41176 2.95432 9.5476 2.90276 9.67899 2.84178L9.83714 3.93498L10.0845 5.64046L10.2972 7.10946C10.3225 7.28249 10.3493 7.45651 10.3736 7.63003C10.3374 7.67366 10.2977 7.71432 10.2576 7.75497Z" fill="#B4AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
-                          7人が応援中
-                        </p>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
-                          <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
-                          </path>
-                        </svg>
-                        <p class="font-bold text-[13px]" data-testid="project-like-count">
-                          8件のいいね！
-                        </p>
-                      </div>
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-subscribed-count">
+                        7人が応援中
+                      </p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <svg width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg" data-testid="content-like-icon">
+                        <path d="M7.95808 14.3394C7.47397 14.3394 6.98929 14.1617 6.63443 13.7907L1.61278 8.76903C-0.16324 6.9607 -0.146505 4.03818 1.64509 2.24658C2.51636 1.37531 3.69518 0.890625 4.92246 0.890625C6.05281 0.890625 7.10238 1.29453 7.95808 2.02097C8.79761 1.29453 9.86333 0.890625 10.9937 0.890625C12.2365 0.890625 13.3992 1.37531 14.2711 2.24658C16.0794 4.05491 16.0794 6.97743 14.2878 8.78576L14.2711 8.80192L9.29845 13.7907C8.92686 14.1455 8.44276 14.3394 7.95808 14.3394ZM2.79159 7.73619L7.73247 12.6771C7.84556 12.7902 8.05559 12.7902 8.1681 12.6771L13.1246 7.72004C13.1246 7.7033 13.1413 7.7033 13.1569 7.68772L13.173 7.67157C14.3518 6.47659 14.3518 4.53959 13.1569 3.34404C12.5752 2.76242 11.8009 2.43988 10.9937 2.43988C10.1865 2.43988 9.41155 2.76242 8.8305 3.32789L8.81435 3.34404L8.78203 3.37635L8.52354 3.65043C8.37813 3.79584 8.1681 3.89277 7.95808 3.89277C7.74804 3.89277 7.53802 3.81199 7.39319 3.66716L7.11911 3.39251C7.10238 3.37635 7.10238 3.37635 7.0868 3.36078C6.50518 2.77916 5.74642 2.47277 4.92362 2.47277C4.09966 2.47277 3.32532 2.79531 2.76044 3.37693C1.56604 4.57133 1.56604 6.50891 2.76044 7.70388L2.77659 7.72061C2.77544 7.70388 2.79159 7.72004 2.79159 7.73619Z" fill="#B5AB99">
+                        </path>
+                      </svg>
+                      <p class="font-bold text-[13px]" data-testid="project-like-count">
+                        8件のいいね！
+                      </p>
                     </div>
                   </div>
                 </div>
               </a>
-            </div>
+
           </div>
         </div>
       </div>
@@ -1822,6 +2087,123 @@
         });
 
         setActive(thumbs[0]);
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const donationButtons = document.querySelectorAll("[data-donation-button]");
+        const modal = document.getElementById("donation-modal");
+        const closeBtn = document.getElementById("donation-modal-close");
+        if (!modal || donationButtons.length === 0) return;
+
+        // Ensure modal is hidden on load
+        modal.hidden = true;
+        modal.style.display = "none";
+        document.body.classList.remove("modal-open");
+
+        const openModal = () => {
+          modal.hidden = false;
+          modal.style.display = "flex";
+          document.body.classList.add("modal-open");
+          const focusTarget = modal.querySelector(".donation-modal");
+          focusTarget && focusTarget.focus();
+        };
+
+        const closeModal = () => {
+          modal.hidden = true;
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+        };
+
+        donationButtons.forEach((btn) => {
+          btn.addEventListener("click", openModal);
+        });
+
+        closeBtn?.addEventListener("click", closeModal);
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && !modal.hidden) {
+            closeModal();
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const carousels = document.querySelectorAll("[data-carousel]");
+        carousels.forEach((carousel) => {
+          const track = carousel.querySelector("[data-carousel-track]");
+          const slides = Array.from(track?.querySelectorAll('[role="group"]') || []);
+          const prev = carousel.querySelector("[data-carousel-prev]");
+          const next = carousel.querySelector("[data-carousel-next]");
+
+          if (!track || slides.length <= 1) {
+            prev?.classList.add("hidden");
+            next?.classList.add("hidden");
+            if (prev) prev.disabled = true;
+            if (next) next.disabled = true;
+            return;
+          }
+
+          let index = 0;
+
+          const computeStep = () => {
+            if (slides.length < 2) return slides[0].getBoundingClientRect().width;
+            const first = slides[0].getBoundingClientRect();
+            const second = slides[1].getBoundingClientRect();
+            return second.left - first.left;
+          };
+
+          const update = () => {
+            const step = computeStep() || slides[0].getBoundingClientRect().width;
+            const offset = -(index * step);
+            track.style.transition = "transform 0.3s ease";
+            track.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+            const atStart = index === 0;
+            const atEnd = index >= slides.length - 1;
+            if (prev) {
+              prev.disabled = atStart;
+              prev.classList.toggle("hidden", atStart);
+            }
+            if (next) {
+              next.disabled = atEnd;
+              next.classList.toggle("hidden", atEnd);
+            }
+          };
+
+          const clampIndex = () => {
+            if (index < 0) index = 0;
+            if (index > slides.length - 1) index = slides.length - 1;
+          };
+
+          next?.addEventListener("click", () => {
+            if (index < slides.length - 1) {
+              index += 1;
+              clampIndex();
+              update();
+            }
+          });
+
+          prev?.addEventListener("click", () => {
+            if (index > 0) {
+              index -= 1;
+              clampIndex();
+              update();
+            }
+          });
+
+          window.addEventListener("resize", () => {
+            clampIndex();
+            update();
+          });
+
+          requestAnimationFrame(update);
+        });
       });
     </script>
   </body>

@@ -670,7 +670,7 @@
         }
       .list-dot li { margin-bottom: 8px; }
       .disclaimer-banner {
-        background: #fff4e5;
+        background-color: #fff4e5;
         border-bottom: 1px solid #ffb347;
         color: #3e2100;
         position: sticky;
@@ -678,7 +678,18 @@
         z-index: 60;
         background-image: linear-gradient(135deg, rgba(255, 227, 186, 0.65) 0 16px, transparent 16px 32px);
         background-size: 32px 100%;
+        background-repeat: repeat-x;
+        background-position: top left;
         animation: banner-glow 9s ease-in-out infinite;
+      }
+      body[data-variant="b"] .disclaimer-banner {
+        background-color: #eaf3ff;
+        border-bottom: 1px solid #87b4ff;
+        color: #0b3666;
+        background-image: linear-gradient(135deg, rgba(196, 219, 255, 0.6) 0 16px, transparent 16px 32px);
+        background-size: 32px 100%;
+        background-repeat: repeat-x;
+        background-position: top left;
       }
       .disclaimer-banner__inner {
         margin: 0 auto;
@@ -690,14 +701,48 @@
         font-size: 14px;
         display: flex;
         gap: 10px;
-        align-items: center;
-        justify-content: center;
+        align-items: flex-start;
+        justify-content: flex-start;
         width: 100%;
+        flex-wrap: wrap;
       }
       .disclaimer-text {
         display: block;
         text-align: center;
         width: 100%;
+      }
+      .disclaimer-variant {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 800;
+        background: rgba(255, 126, 26, 0.12);
+        color: #8a3d00;
+        border: 1px solid rgba(255, 126, 26, 0.25);
+      }
+      .disclaimer-variant__chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: #ffeedf;
+        color: #8a3d00;
+        font-size: 12px;
+        letter-spacing: 0.5px;
+      }
+      body[data-variant="b"] .disclaimer-variant {
+        background: rgba(0, 91, 172, 0.12);
+        color: #0b3666;
+        border: 1px solid rgba(0, 91, 172, 0.2);
+      }
+      body[data-variant="b"] .disclaimer-variant__chip {
+        background: #e3eeff;
+        color: #0b3666;
       }
       .no-action {
         pointer-events: none;
@@ -862,6 +907,10 @@
     </header>
     <div class="disclaimer-banner" role="alert">
       <div class="disclaimer-banner__inner">
+        <span class="disclaimer-variant">
+          <span class="disclaimer-variant__chip" data-variant-chip>B</span>
+          <span data-variant-label>閲覧中：条件B（概要 + ストーリーLP）</span>
+        </span>
         <span class="disclaimer-text">
           本ページは、アンケート調査を目的として作成された「SCSKのふるさと納税」ページの模擬サイトです。実際の寄付受付は行っておりません。<br>なお、本アンケートの実施および本ページの公開については、SCSKの許可を得ています。
         </span>
@@ -2213,6 +2262,25 @@
           requestAnimationFrame(update);
         });
       });
+    </script>
+    <script>
+      (function () {
+        const params = new URL(window.location.href).searchParams;
+        const raw = (params.get("variant") || "").toLowerCase();
+        let variant = raw === "b" ? "b" : raw === "a" ? "a" : null;
+        if (!variant) {
+          variant = window.location.pathname.includes("_b") ? "b" : "a";
+        }
+        document.body.dataset.variant = variant;
+
+        const label = variant === "b" ? "条件B（概要 + ストーリーLP）" : "条件A（概要のみ）";
+        document.querySelectorAll("[data-variant-label]").forEach((el) => {
+          el.textContent = `閲覧中：${label}`;
+        });
+        document.querySelectorAll("[data-variant-chip]").forEach((el) => {
+          el.textContent = variant.toUpperCase();
+        });
+      })();
     </script>
   </body>
 </html>

@@ -119,6 +119,10 @@
         display: flex;
         gap: 10px;
       }
+      .buttons.emphasized {
+        position: relative;
+        padding-top: 10px;
+      }
       .buttons a {
         display: inline-flex;
         justify-content: center;
@@ -142,6 +146,37 @@
       .btn-primary {
         background: linear-gradient(135deg, #005bac, #0a78d1);
         color: #ffffff;
+      }
+      .btn-primary.cta-pulse {
+        position: relative;
+        overflow: visible;
+        box-shadow: 0 14px 32px rgba(10, 120, 209, 0.3);
+        gap: 8px;
+      }
+      .btn-primary.cta-pulse::before {
+        content: "";
+        position: absolute;
+        inset: -8px;
+        border: 2px solid rgba(10, 120, 209, 0.3);
+        border-radius: 12px;
+        animation: pulse-ring 2s ease-out infinite;
+        z-index: 0;
+      }
+      .btn-primary.cta-pulse span {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .btn-primary.cta-pulse:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 16px 36px rgba(10, 120, 209, 0.35);
+      }
+      @keyframes pulse-ring {
+        0% { transform: scale(0.96); opacity: 0.65; }
+        70% { transform: scale(1.08); opacity: 0; }
+        100% { transform: scale(1.12); opacity: 0; }
       }
       .btn-outline {
         background: #ffffff;
@@ -168,7 +203,7 @@
     <header>
       <div class="brand">
         <span>SCSK ふるさと納税 模擬サイト</span>
-        <small>大学授業プロジェクト | 調査用</small>
+        <small>秋田県立大学CsP | 調査用</small>
       </div>
     </header>
     <main>
@@ -187,8 +222,10 @@
           <div class="choice">
             <h2><span class="pill">条件B</span>概要 + ストーリーLP</h2>
             <p>概要ページに加え、社会的背景やストーリー性を強調したLPへ遷移する構成です。<span class="highlight">現行調査の主対象</span>です。</p>
-            <div class="buttons">
-              <a class="btn-primary" href="project_overview_b.html?variant=b">条件Bを閲覧する</a>
+            <div class="buttons emphasized">
+              <a class="btn-primary cta-pulse" href="project_overview_b.html?variant=b" aria-label="条件Bを閲覧する">
+                <span>ここをクリック → 条件Bを閲覧する</span>
+              </a>
             </div>
           </div>
         </div>

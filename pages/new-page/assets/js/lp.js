@@ -30,6 +30,48 @@ $('.slider-fv').slick({
   //   }
   // ]
 });
+// 企業ロゴスライダー
+if ($('.slider-company').length) {
+  var $slider = $('.slider-company');
+  var columnCount = $slider.find('.logo-column').length;
+  var baseSlidesToShow = Math.min(5, columnCount);
+  var tabletSlidesToShow = Math.min(4, baseSlidesToShow);
+  var mobileSlidesToShow = Math.min(2, baseSlidesToShow);
+  var needsScroll = columnCount > baseSlidesToShow;
+
+  $slider.slick({
+    infinite: false,
+    arrows: false,
+    dots: false,
+    autoplay: needsScroll,
+    autoplaySpeed: 2000,
+    speed: 600,
+    slidesToShow: baseSlidesToShow,
+    slidesToScroll: 1,
+    pauseOnHover: true,
+    pauseOnFocus: false,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: tabletSlidesToShow,
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: mobileSlidesToShow,
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: mobileSlidesToShow,
+        }
+      }
+    ]
+  });
+}
 $('.slider-nav').slick({
   infinite: false,
   arrows: false,

@@ -7,6 +7,8 @@
   <meta name="description" content="">
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <link href="./assets/css2" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/slick.css">
+  <link rel="stylesheet" href="./assets/slick-theme.css">
   <link rel="stylesheet" href="./assets/style.css">
 
   <!-- SCSK解析用 -->
@@ -23,19 +25,19 @@
   <section class="sec-fv">
     <div class="fv-block">
       <div class="inner">
-        <div class="slider slider-fv slick-initialized slick-slider slick-dotted">
-          <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 4800px; transform: translate3d(0px, 0px, 0px);"><div class="slider-item slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="0" role="tabpanel" id="slick-slide00" aria-describedby="slick-slide-control00" style="width: 1200px;"><img src="./assets/fv-slide-1.png" alt="" width="1440" height="810"></div><div class="slider-item slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide01" aria-describedby="slick-slide-control01" style="width: 1200px;"><img src="./assets/fv-slide-2.png" alt="" width="1440" height="810"></div><div class="slider-item slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide02" aria-describedby="slick-slide-control02" style="width: 1200px;"><img src="./assets/fv-slide-3.png" alt="" width="1440" height="810"></div><div class="slider-item slick-slide" data-slick-index="3" aria-hidden="true" tabindex="-1" role="tabpanel" id="slick-slide03" aria-describedby="slick-slide-control03" style="width: 1200px;"><img src="./assets/fv-slide-4.png" alt="" width="1440" height="810"></div></div></div>
-          
-          
-          
-        <ul class="slick-dots" style="" role="tablist"><li class="slick-active" role="presentation"><img src="./assets/fv-slide-1.png"></li><li role="presentation" class=""><img src="./assets/fv-slide-2.png"></li><li role="presentation"><img src="./assets/fv-slide-3.png"></li><li role="presentation" class=""><img src="./assets/fv-slide-4.png"></li></ul></div>
+        <div class="slider slider-fv">
+          <div class="slider-item"><img src="./assets/fv-slide-1.png" alt="" width="1440" height="810"></div>
+          <div class="slider-item"><img src="./assets/fv-slide-2.png" alt="" width="1440" height="810"></div>
+          <div class="slider-item"><img src="./assets/fv-slide-3.png" alt="" width="1440" height="810"></div>
+          <div class="slider-item"><img src="./assets/fv-slide-4.png" alt="" width="1440" height="810"></div>
+        </div>
       </div>
     </div>
     <!-- <div class="slider slider-nav">
-      <div class="slider-item"><img src="assets/img/fv-slide-1.png" alt="" width="1440" height="810"></div>
-      <div class="slider-item"><img src="assets/img/fv-slide-2.png" alt="" width="1440" height="810"></div>
-      <div class="slider-item"><img src="assets/img/fv-slide-3.png" alt="" width="1440" height="810"></div>
-      <div class="slider-item"><img src="assets/img/fv-slide-4.png" alt="" width="1440" height="810"></div>
+      <div class="slider-item"><img src="./assets/fv-slide-1.png" alt="" width="1440" height="810"></div>
+      <div class="slider-item"><img src="./assets/fv-slide-2.png" alt="" width="1440" height="810"></div>
+      <div class="slider-item"><img src="./assets/fv-slide-3.png" alt="" width="1440" height="810"></div>
+      <div class="slider-item"><img src="./assets/fv-slide-4.png" alt="" width="1440" height="810"></div>
     </div> -->
   </section>
   <!-- .sec-fv -->
@@ -48,7 +50,7 @@
   </section>
   <!-- /.sec-cv -->
 
-  <div id="project-detail" class="animated slide-down" style="height: 698.594px;">
+  <div id="project-detail" class="animated">
     <section class="sec-01 sec-content">
       <div class="block-01">
         <div class="inner">
@@ -69,7 +71,7 @@
             </p>
           </div>
         </div>
-        <div class="more-btn animated" style="display: none;">
+        <div class="more-btn animated">
           <div class="inner">
             <p class="btn open">プロジェクトの詳細を見る</p>
           </div>
@@ -77,8 +79,8 @@
       </div>
       <div class="image-block">
         <picture>
-          <source media="(max-width: 768px)" srcset="assets/img/section-01-bg-01-sp.png">
-          <source media="(min-width: 769px)" srcset="assets/img/section-01-bg-01-pc.png">
+          <source media="(max-width: 768px)" srcset="./assets/section-01-bg-01-pc.png">
+          <source media="(min-width: 769px)" srcset="./assets/section-01-bg-01-pc.png">
           <img src="./assets/section-01-bg-01-pc.png" alt="">
         </picture>
         <div class="inner">
@@ -91,8 +93,8 @@
           <div class="text-block">
             <h2 class="title">
               <picture>
-                <source media="(max-width: 768px)" srcset="assets/img/section-01-ttl-02-sp.svg">
-                <source media="(min-width: 769px)" srcset="assets/img/section-01-ttl-02.svg">
+                <source media="(max-width: 768px)" srcset="./assets/section-01-ttl-02.svg">
+                <source media="(min-width: 769px)" srcset="./assets/section-01-ttl-02.svg">
                 <img src="./assets/section-01-ttl-02.svg" alt="メリットがあるとわかっていても、失われつつある「こどもたちが読書を楽しむ習慣」">
               </picture>
             </h2>
@@ -101,13 +103,13 @@
             </p>
             <div class="image">
               <picture class="image-title">
-                <source media="(max-width: 768px)" srcset="assets/img/section-01-block-02-img-ttl-01-sp.svg">
-                <source media="(min-width: 769px)" srcset="assets/img/section-01-block-02-img-ttl-01.svg">
+                <source media="(max-width: 768px)" srcset="./assets/section-01-block-02-img-ttl-01.svg">
+                <source media="(min-width: 769px)" srcset="./assets/section-01-block-02-img-ttl-01.svg">
                 <img src="./assets/section-01-block-02-img-ttl-01.svg" alt="1か月間に本を1冊も読まなかった子どもの割合（2019年）">
               </picture>
               <picture class="image-content">
-                <source media="(max-width: 768px)" srcset="assets/img/section-01-block-02-img-00-sp.svg">
-                <source media="(min-width: 769px)" srcset="assets/img/section-01-block-02-img-00.svg">
+                <source media="(max-width: 768px)" srcset="./assets/section-01-block-02-img-00.svg">
+                <source media="(min-width: 769px)" srcset="./assets/section-01-block-02-img-00.svg">
                 <img src="./assets/section-01-block-02-img-00.svg" alt="">
               </picture>
               <p class="caption">出典：「第 65 回学校読書調査報告」【全国学校図書館協議会、令和元（2019）年】</p>
@@ -135,8 +137,8 @@
           <div class="text-block">
             <h2 class="title">
               <picture>
-                <source media="(max-width: 768px)" srcset="assets/img/section-01-ttl-04-sp.svg">
-                <source media="(min-width: 769px)" srcset="assets/img/section-01-ttl-04.svg">
+                <source media="(max-width: 768px)" srcset="./assets/section-01-ttl-04.svg">
+                <source media="(min-width: 769px)" srcset="./assets/section-01-ttl-04.svg">
                 <img src="./assets/section-01-ttl-04.svg" alt="確かなこと「こどもの頃に読書を楽しむ習慣を身につけることは代えがたい財産になる」">
               </picture>
             </h2>
@@ -159,8 +161,8 @@
           <div class="text-block">
             <h2 class="title">
             <picture>
-              <source media="(max-width: 768px)" srcset="assets/img/section-02-ttl-01-sp.svg">
-              <source media="(min-width: 769px)" srcset="assets/img/section-02-ttl-01.svg">
+              <source media="(max-width: 768px)" srcset="./assets/section-02-ttl-01.svg">
+              <source media="(min-width: 769px)" srcset="./assets/section-02-ttl-01.svg">
               <img src="./assets/section-02-ttl-01.svg" alt="日本初の取り組み！自然豊かな歴史ある北海道大学の中に小中学生が読書を楽しむことに特化した図書館を">
             </picture>
             </h2>
@@ -222,8 +224,8 @@
             <div class="usecase usecase-01">
               <h3 class="usecase-title">
                 <picture>
-                  <source media="(max-width: 768px)" srcset="assets/img/section-02-usecase-ttl-01-sp.svg">
-                  <source media="(min-width: 769px)" srcset="assets/img/section-02-usecase-ttl-01.svg">
+                  <source media="(max-width: 768px)" srcset="./assets/section-02-usecase-ttl-01.svg">
+                  <source media="(min-width: 769px)" srcset="./assets/section-02-usecase-ttl-01.svg">
                   <img src="./assets/section-02-usecase-ttl-01.svg" alt="こどもたちの学びを豊かにするための費用">
                 </picture>
               </h3>
@@ -235,8 +237,8 @@
             <div class="usecase usecase-02">
               <h3 class="usecase-title">
                 <picture>
-                  <source media="(max-width: 768px)" srcset="assets/img/section-02-usecase-ttl-02-sp.svg">
-                  <source media="(min-width: 769px)" srcset="assets/img/section-02-usecase-ttl-02.svg">
+                  <source media="(max-width: 768px)" srcset="./assets/section-02-usecase-ttl-02.svg">
+                  <source media="(min-width: 769px)" srcset="./assets/section-02-usecase-ttl-02.svg">
                   <img src="./assets/section-02-usecase-ttl-02.svg" alt="安心して過ごせる空間を守るための費用">
                 </picture>
               </h3>
@@ -261,8 +263,8 @@
               <p class="message-image">
                 <img class="image" src="./assets/section-02-block-04-img-01.png" alt="">
                 <picture>
-                  <source media="(max-width: 768px)" srcset="assets/img/section-02-block-04-img-01-text-sp.svg">
-                  <source media="(min-width: 769px)" srcset="assets/img/section-02-block-04-img-01-text.svg">
+                  <source media="(max-width: 768px)" srcset="./assets/section-02-block-04-img-01-text.svg">
+                  <source media="(min-width: 769px)" srcset="./assets/section-02-block-04-img-01-text.svg">
                   <img class="image-text" src="./assets/section-02-block-04-img-01-text.svg" alt="安藤忠雄氏 建築家">
                 </picture>
                 <!-- <img class="image-text" src="assets/img/section-02-block-04-img-01-text.svg" alt=""> -->
@@ -286,8 +288,8 @@
               <p class="message-image">
                 <img class="image" src="./assets/section-02-block-04-img-02.png" alt="">
                 <picture>
-                  <source media="(max-width: 768px)" srcset="assets/img/section-02-block-04-img-02-text-sp.svg">
-                  <source media="(min-width: 769px)" srcset="assets/img/section-02-block-04-img-02-text.svg">
+                  <source media="(max-width: 768px)" srcset="./assets/section-02-block-04-img-02-text.svg">
+                  <source media="(min-width: 769px)" srcset="./assets/section-02-block-04-img-02-text.svg">
                   <img class="image-text" src="./assets/section-02-block-04-img-02-text.svg" alt="寳金清博 北海道大学総長">
                 </picture>
                 <!-- <img class="image-text" src="assets/img/section-02-block-04-img-02-text.svg" alt=""> -->
@@ -354,8 +356,8 @@
       <div class="block-01">
         <h3 class="title-secondary">
           <picture>
-            <source media="(max-width: 768px)" srcset="assets/img/section-03-ttl-secondary-01-sp.svg">
-            <source media="(min-width: 769px)" srcset="assets/img/section-03-ttl-secondary-01.svg">
+            <source media="(max-width: 768px)" srcset="./assets/section-03-ttl-secondary-01.svg">
+            <source media="(min-width: 769px)" srcset="./assets/section-03-ttl-secondary-01.svg">
             <img src="./assets/section-03-ttl-secondary-01.svg" alt="応援したい大学や地域の教育活動プロジェクトに、「ふるさと納税」の仕組みを使って気軽に寄付できるサービスです。">
           </picture>
         </h3>
@@ -368,8 +370,8 @@
         <h3 class="title-secondary"><img src="./assets/section-03-ttl-secondary-02.svg" alt="お金の流れ"></h3>
         <p class="image">
           <picture>
-            <source media="(max-width: 768px)" srcset="assets/img/section-03-img-money-flow-sp.svg">
-            <source media="(min-width: 769px)" srcset="assets/img/section-03-img-money-flow.svg">
+            <source media="(max-width: 768px)" srcset="./assets/section-03-img-money-flow.svg">
+            <source media="(min-width: 769px)" srcset="./assets/section-03-img-money-flow.svg">
             <img src="./assets/section-03-img-money-flow.svg" alt="">
           </picture>
         </p>

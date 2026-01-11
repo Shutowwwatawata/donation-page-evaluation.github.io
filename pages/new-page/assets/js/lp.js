@@ -40,7 +40,7 @@ if ($('.slider-company').length) {
   var needsScroll = columnCount > baseSlidesToShow;
 
   $slider.slick({
-    infinite: false,
+    infinite: true,
     arrows: false,
     dots: false,
     autoplay: needsScroll,

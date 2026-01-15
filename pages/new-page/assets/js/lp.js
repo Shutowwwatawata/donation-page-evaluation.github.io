@@ -5,31 +5,6 @@
 //   }
 // });
 
-// FVスライダー
-$('.slider-fv').slick({
-  infinite: false,
-  arrows: false,
-  // lazyLoad: 'progressive', //LazyLoad使う場合
-  dots:true,
-  customPaging: function(slick,index) {
-    // スライダーのインデックス番号に対応した画像のsrcを取得
-    var targetImage = slick.$slides.eq(index).find('img').attr('src');
-    // slick-dots > li　の中に上記で取得した画像を設定
-    return '<img src=" ' + targetImage + ' "/>';
-  }
-  // asNavFor: '.slider-nav',
-  // slidesToShow: 1,
-  // slidesToScroll: 1,
-  // variableWidth: true,
-  // responsive: [
-  //   {
-  //     breakpoint: 768,
-  //     settings: {
-  //       slidesToShow: 1,
-  //     }
-  //   }
-  // ]
-});
 // 企業ロゴスライダー
 if ($('.slider-company').length) {
   var $slider = $('.slider-company');
@@ -117,22 +92,12 @@ if ($('.slider-company').length) {
     }, 250);
   });
 }
-$('.slider-nav').slick({
-  infinite: false,
-  arrows: false,
-  focusOnSelect: true,
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  asNavFor: '.slider-fv',
-});
 
 $(window).on('load', function () {
   var $hero = $('.csp-hero');
-  var $legacyBlock = $('.sec-01 .block-01');
-  var projectHeight = $hero.length ? $hero.outerHeight() : $legacyBlock.height();
 
-  if (projectHeight) {
-    $('#project-detail').height(projectHeight);
+  if ($hero.length) {
+    $('#project-detail').height($hero.outerHeight());
   }
 });
 
@@ -147,9 +112,51 @@ $('.more-btn').on('click', function() {
   // }
 });
 
-// よくある質問
-$('.faq-item dt').click(function () {
-  $(this).next('dd').slideToggle();
-  $(this).toggleClass('open');
+document.addEventListener("DOMContentLoaded", function () {
+  const donationButtons = document.querySelectorAll("[data-donation-button]");
+  const modal = document.getElementById("donation-modal");
+  const closeBtn = document.getElementById("donation-modal-close");
+  if (!modal || donationButtons.length === 0) return;
+
+  modal.hidden = true;
+  modal.style.display = "none";
+  document.body.classList.remove("modal-open");
+
+  const openModal = () => {
+    modal.hidden = false;
+    modal.style.display = "flex";
+    document.body.classList.add("modal-open");
+    const focusTarget = modal.querySelector(".donation-modal");
+    if (focusTarget) {
+      focusTarget.focus();
+    }
+  };
+
+  const closeModal = () => {
+    modal.hidden = true;
+    modal.style.display = "none";
+    document.body.classList.remove("modal-open");
+  };
+
+  donationButtons.forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.preventDefault();
+      openModal();
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeModal);
+  }
+  modal.addEventListener("click", (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !modal.hidden) {
+      closeModal();
+    }
+  });
 });
 

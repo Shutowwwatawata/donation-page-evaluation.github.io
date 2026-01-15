@@ -647,10 +647,15 @@
 .csp-case__inner{
   display:grid;
   grid-template-columns:120px 1fr 1fr;
+  grid-template-areas:
+    "profile theme theme"
+    "profile current lecture"
+    "more more more";
   gap:14px 16px;
   align-items:start;
 }
 .csp-case__profile{
+  grid-area:profile;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -676,17 +681,25 @@
   line-height:1.5;
   color:#111;
 }
-.csp-case__current{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
 .csp-case__theme{
+  grid-area:theme;
   margin:0;
   font-size:15px;
   font-weight:800;
   line-height:1.5;
   letter-spacing:.02em;
+}
+.csp-case__current{
+  grid-area:current;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.csp-case__lecture{
+  grid-area:lecture;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 .csp-case__card{
   background:#f7f7f7;
@@ -700,6 +713,7 @@
   letter-spacing:.02em;
 }
 .csp-case__more{
+  grid-area:more;
   background:#f7f7f7;
   padding:12px 14px;
   border-radius:10px;
@@ -715,8 +729,17 @@
   border-radius:6px;
   margin-bottom:8px;
 }
+.csp-case__moreHeader{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+.csp-case__moreHeader .csp-case__label{
+  margin-bottom:0;
+}
 .csp-case__moreLead{
-  margin:0 0 8px;
+  margin:0;
   font-weight:800;
   font-size:14px;
   letter-spacing:.02em;
@@ -747,6 +770,12 @@
   }
   .csp-case__inner{
     grid-template-columns:1fr;
+    grid-template-areas:
+      "profile"
+      "theme"
+      "current"
+      "lecture"
+      "more";
   }
   .csp-case__profile{
     flex-direction:row;

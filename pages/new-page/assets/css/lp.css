@@ -581,12 +581,22 @@
   z-index:0;
   filter:brightness(1.08) contrast(.92) saturate(.95);
 }
-.csp-env__hero::after{
+.csp-env__hero::before{
   content:"";
   position:absolute;
   inset:0;
   z-index:1;
   background:rgba(255,255,255,.80);
+  pointer-events:none;
+}
+.csp-env__hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom,
+    rgba(255,255,255,0) 0%,
+    rgba(255,255,255,.35) 45%,
+    rgba(255,255,255,.85) 100%);
   pointer-events:none;
 }
 .csp-env__overlay{

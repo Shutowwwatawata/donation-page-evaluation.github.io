@@ -679,14 +679,10 @@
 .csp-case__photo{
   width:88px;
   height:120px;
-  background:#d97c7c;
-  color:#fff;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
+  display:block;
+  object-fit:cover;
+  background:#e0e0e0;
   border-radius:6px;
-  font-size:12px;
 }
 .csp-case__name{
   margin:0;

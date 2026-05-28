@@ -16,10 +16,27 @@
 </head>
 <body>
 
+<div class="banner-toggle-container">
+  <button type="button" class="banner-toggle banner-toggle-show" data-banner-show>バナーを表示する</button>
+</div>
+<div class="disclaimer-banner" role="alert">
+  <div class="disclaimer-banner__inner">
+    <div class="disclaimer-banner__top">
+      <span class="disclaimer-variant">
+        <span class="disclaimer-variant__chip">2</span>
+        <span>現在表示中：プロトタイプ2</span>
+      </span>
+      <span class="disclaimer-actions">
+        <a class="banner-toggle banner-link" href="../../project_overview_a.html">プロトタイプ1はこちら</a>
+        <button type="button" class="banner-toggle" data-banner-hide>バナーを非表示にする</button>
+      </span>
+    </div>
+  </div>
+</div>
+
 <header id="header" class="header">
   <div class="inner header__inner">
     <h1 class="logo"><img src="./assets/img/logo/header-logo.png" alt="大学と地域を応援するSCSKのふるさと納税" width="215" height="39" fetchpriority="high"></h1>
-    <a class="header-cta" href="../../project_overview_b.html?variant=b">プロジェクトページを見る</a>
   </div>
 </header>
 <main id="main" class="main">
@@ -618,6 +635,18 @@
   <script src="./assets/js/vendor/jquery-3.7.1.min.js"></script>
   <script src="./assets/js/vendor/slick.min.js"></script>
   <script src="./assets/js/lp.js"></script>
+  <script>
+    (function () {
+      const hideBtn = document.querySelector("[data-banner-hide]");
+      const showBtn = document.querySelector("[data-banner-show]");
+      const setBannerVisible = (visible) => {
+        document.body.classList.toggle("banner-hidden", !visible);
+      };
+      setBannerVisible(true);
+      hideBtn?.addEventListener("click", () => setBannerVisible(false));
+      showBtn?.addEventListener("click", () => setBannerVisible(true));
+    })();
+  </script>
 
 
 <script type="text/javascript" id="" charset="">"function"!==typeof _cam&&(function(a){var b=window,c=document;b.ShanonCAMObject=a;b[a]=b[a]||function(){(b[a].q=b[a].q||[]).push(arguments)};b[a].date=1*new Date;var d=c.createElement("script");c=c.getElementsByTagName("script")[0];d.async=1;d.type="text/javascript";d.charset="utf-8";d.src="https://tracker.shanon-services.com/static/js/cam3.js?_\x3d"+b[a].date;c.parentNode.insertBefore(d,c)}("_cam"),_cam("create","cczCbUMBPz-504","form.scsk.jp www.scsk.jp proactive.jp www.smclbms.com www.netxdc.com www.celf.jp www.celf.biz www.frontgate.jp".split(" ")),

@@ -702,7 +702,15 @@
         display: flex;
         gap: 10px;
         align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        flex-wrap: wrap;
+      }
+      .disclaimer-banner__top {
+        display: flex;
+        align-items: center;
         justify-content: space-between;
+        gap: 10px;
         width: 100%;
         flex-wrap: wrap;
       }
@@ -710,11 +718,14 @@
         display: inline-flex;
         gap: 10px;
         flex-shrink: 0;
+        flex-wrap: wrap;
       }
       .disclaimer-text {
         display: block;
         text-align: center;
         width: 100%;
+        font-size: 13px;
+        font-weight: 600;
       }
       .disclaimer-variant {
         display: inline-flex;
@@ -774,6 +785,9 @@
       .banner-toggle:active {
         transform: translateY(0);
         box-shadow: none;
+      }
+      .banner-link {
+        text-decoration: none;
       }
       .banner-toggle-container {
         position: sticky;
@@ -882,6 +896,21 @@
           font-size: 15px;
         }
       }
+      @media (max-width: 767px) {
+        .disclaimer-banner__top {
+          align-items: stretch;
+        }
+        .disclaimer-actions {
+          width: 100%;
+          flex-direction: column;
+        }
+        .banner-toggle,
+        .banner-link {
+          width: 100%;
+          min-height: 44px;
+          justify-content: center;
+        }
+      }
       @keyframes banner-glow {
         0%, 100% { box-shadow: 0 6px 16px rgba(255, 94, 23, 0.08); }
         4% { box-shadow: 0 10px 22px rgba(255, 94, 23, 0.23); }
@@ -901,6 +930,23 @@
     </noscript>
     <section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false">
     </section>
+    <div class="banner-toggle-container">
+      <button type="button" class="banner-toggle banner-toggle-show" data-banner-show>バナーを表示する</button>
+    </div>
+    <div class="disclaimer-banner" role="alert">
+      <div class="disclaimer-banner__inner">
+        <div class="disclaimer-banner__top">
+          <span class="disclaimer-variant">
+            <span class="disclaimer-variant__chip">1</span>
+            <span>現在表示中：プロトタイプ1</span>
+          </span>
+          <span class="disclaimer-actions">
+            <a class="banner-toggle banner-link" href="pages/new-page/lp.html">プロトタイプ2はこちら</a>
+            <button type="button" class="banner-toggle" data-banner-hide>バナーを非表示にする</button>
+          </span>
+        </div>
+      </div>
+    </div>
     <header class="flex items-center border-[#E2E8F0] border-b h-[53px] lg:h-[90px]">
       <div class="mx-auto flex w-full items-center justify-between px-4 lg:max-w-[1200px] lg:px-10">
         <div class="flex items-center gap-[20px] lg:block">
@@ -957,23 +1003,6 @@
         </nav>
       </div>
     </header>
-    <div class="banner-toggle-container">
-      <button type="button" class="banner-toggle banner-toggle-show" data-banner-show>バナーを表示する</button>
-    </div>
-    <div class="disclaimer-banner" role="alert">
-      <div class="disclaimer-banner__inner">
-        <span class="disclaimer-variant">
-          <span class="disclaimer-variant__chip" data-variant-chip>A</span>
-          <span data-variant-label>閲覧中：条件A（概要のみ）</span>
-        </span>
-        <span class="disclaimer-actions">
-          <button type="button" class="banner-toggle" data-banner-hide>バナーを非表示にする</button>
-        </span>
-        <span class="disclaimer-text">
-          本ページは、アンケート調査を目的として作成された「SCSKのふるさと納税」ページの模擬サイトです。実際の寄付受付は行っておりません。<br>なお、本アンケートの実施および本ページの公開については、SCSKの許可を得ています。
-        </span>
-      </div>
-    </div>
     <div id="donation-modal" class="donation-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="donation-modal-title" aria-describedby="donation-modal-desc" hidden>
       <div class="donation-modal" tabindex="-1">
         <p class="donation-modal__title" id="donation-modal-title">
@@ -2320,22 +2349,6 @@
     </script>
     <script>
       (function () {
-        const params = new URL(window.location.href).searchParams;
-        const raw = (params.get("variant") || "").toLowerCase();
-        let variant = raw === "b" ? "b" : raw === "a" ? "a" : null;
-        if (!variant) {
-          variant = window.location.pathname.includes("_b") ? "b" : "a";
-        }
-        document.body.dataset.variant = variant;
-
-        const label = variant === "b" ? "条件B（概要 + ストーリーLP）" : "条件A（概要のみ）";
-        document.querySelectorAll("[data-variant-label]").forEach((el) => {
-          el.textContent = `閲覧中：${label}`;
-        });
-        document.querySelectorAll("[data-variant-chip]").forEach((el) => {
-          el.textContent = variant.toUpperCase();
-        });
-
         const hideBtn = document.querySelector("[data-banner-hide]");
         const showBtn = document.querySelector("[data-banner-show]");
         const setBannerVisible = (visible) => {

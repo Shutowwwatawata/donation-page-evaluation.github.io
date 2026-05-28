@@ -107,8 +107,11 @@ section{overflow:hidden}
 .sec-company .logo-column[data-dept=management]{--dept-color:#9ad1e7}
 .sec-company .logo-column[data-dept=architecture]{--dept-color:#907C7C}
 .sec-company .logo-column[data-dept=mechatronics]{--dept-color:#DCC3E3}
-.sec-company .logo-item{display:grid;place-items:center;width:160px;height:72px;margin-inline:auto;overflow:hidden;text-align:center}
-.sec-company .logo-item img{width:100%;height:100%;object-fit:contain;object-position:center}
+.sec-company .logo-item{display:flex;align-items:center;justify-content:center;width:160px;max-width:100%;height:72px;margin-inline:auto;overflow:hidden;text-align:center}
+.sec-company .logo-item--wide{width:190px}
+.sec-company .logo-item--xwide{width:208px}
+.sec-company .logo-item img{width:auto;height:auto;max-width:100%;max-height:100%;object-fit:contain;object-position:center}
+.sec-company .logo-item--shrink img{max-width:80%;max-height:80%}
 .sec-company .logo-item.is-empty{visibility:hidden}
 .sec-company .slick-track{display:flex;align-items:stretch}
 @media screen and (max-width: 768px){
@@ -118,6 +121,8 @@ section{overflow:hidden}
   .sec-company .logo-column.is-group-end{margin-right:.75rem}
   .sec-company .logo-column.is-group-start .logo-group-label{top:.3rem;left:.4rem;font-size:.625rem}
   .sec-company .logo-item{width:120px;height:52px}
+  .sec-company .logo-item--wide{width:136px}
+  .sec-company .logo-item--xwide{width:148px}
 }
 .csp-hero{padding:72px 0 120px;
   background-color:#f9fbff;
